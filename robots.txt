@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://team19.media/sitemap.xml
