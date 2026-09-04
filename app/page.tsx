@@ -5,6 +5,7 @@ import PillButton from "@/components/PillButton";
 import { BentoGrid, BentoCard } from "@/components/BentoGrid";
 import CtaBand from "@/components/CtaBand";
 import ClientMarquee from "@/components/ClientMarquee";
+import { InstagramIcon, FacebookIcon, LinkedInIcon, TikTokIcon } from "@/components/BrandIcons";
 import { BENEFITS, SERVICES, PLATFORMS, PLATFORM_TEASER, COMPANY, HERO_PHOTOS } from "@/lib/content";
 
 const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -12,6 +13,13 @@ const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   Megaphone,
   UsersRound,
   Sparkles,
+};
+
+const PLATFORM_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+  instagram: InstagramIcon,
+  facebook: FacebookIcon,
+  linkedin: LinkedInIcon,
+  tiktok: TikTokIcon,
 };
 
 export default function HomePage() {
@@ -108,6 +116,7 @@ export default function HomePage() {
         <BentoGrid className="mt-12">
           {(Object.keys(PLATFORMS) as (keyof typeof PLATFORMS)[]).map((key) => {
             const p = PLATFORMS[key];
+            const Icon = PLATFORM_ICONS[key];
             return (
               <a
                 key={key}
@@ -125,7 +134,10 @@ export default function HomePage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
                 </div>
                 <div className="absolute inset-x-0 bottom-0 p-6">
-                  <h3 className="text-xl font-bold text-white">{p.name}</h3>
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-md">
+                    <Icon className="h-4 w-4" />
+                  </div>
+                  <h3 className="mt-3 text-xl font-bold text-white">{p.name}</h3>
                   <p className="mt-2 text-sm text-white/80">{PLATFORM_TEASER[key]}</p>
                 </div>
               </a>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { COMPANY, SOCIAL, PLATFORM_NAV } from "@/lib/content";
+import { COMPANY, SOCIAL, PLATFORM_NAV, GOOGLE_MAPS_URL } from "@/lib/content";
 import { InstagramIcon, FacebookIcon, LinkedInIcon, TikTokIcon } from "./BrandIcons";
 
 const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -79,7 +79,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/team" className="hover:text-white">
-                  Unser Team
+                  Über uns
                 </Link>
               </li>
               <li>
@@ -111,9 +111,16 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                {COMPANY.street}
-                <br />
-                {COMPANY.zip} {COMPANY.city}
+                <a
+                  href={GOOGLE_MAPS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white"
+                >
+                  {COMPANY.street}
+                  <br />
+                  {COMPANY.zip} {COMPANY.city}
+                </a>
               </li>
             </ul>
           </div>

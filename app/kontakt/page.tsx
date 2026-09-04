@@ -3,7 +3,7 @@ import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import Section from "@/components/Section";
 import ContactForm from "@/components/ContactForm";
 import GlassCard from "@/components/GlassCard";
-import { COMPANY, HOURS, FORM_INTRO_SOCIAL, GOALS } from "@/lib/content";
+import { COMPANY, HOURS, FORM_INTRO_SOCIAL, GOALS, GOOGLE_MAPS_URL } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Kontakt",
@@ -45,11 +45,16 @@ export default function KontaktPage() {
                 </li>
                 <li className="flex items-start gap-3">
                   <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-brand-red" />
-                  <span className="font-medium text-gray-800">
+                  <a
+                    href={GOOGLE_MAPS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-gray-800 hover:text-brand-red"
+                  >
                     {COMPANY.street}
                     <br />
                     {COMPANY.zip} {COMPANY.city}
-                  </span>
+                  </a>
                 </li>
               </ul>
             </div>
