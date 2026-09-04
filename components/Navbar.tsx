@@ -6,6 +6,14 @@ import { useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { NAV, COMPANY } from "@/lib/content";
 import PillButton from "./PillButton";
+import { InstagramIcon, FacebookIcon, LinkedInIcon, TikTokIcon } from "./BrandIcons";
+
+const PLATFORM_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+  instagram: InstagramIcon,
+  facebook: FacebookIcon,
+  linkedin: LinkedInIcon,
+  tiktok: TikTokIcon,
+};
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -43,20 +51,20 @@ export default function Navbar() {
                     </Link>
                     {subOpen === item.key && (
                       <ul className="absolute left-0 top-full w-64 rounded-3xl border border-gray-200 bg-white p-2 shadow-xl">
-                        {item.sub.map((s) => (
-                          <li key={s.key}>
-                            <Link
-                              href={s.href}
-                              className="flex items-center gap-2 rounded-2xl px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100"
-                            >
-                              <span
-                                className="h-2 w-2 rounded-full"
-                                style={{ background: "var(--brand-red)" }}
-                              />
-                              {s.label}
-                            </Link>
-                          </li>
-                        ))}
+                        {item.sub.map((s) => {
+                          const Icon = PLATFORM_ICONS[s.key];
+                          return (
+                            <li key={s.key}>
+                              <Link
+                                href={s.href}
+                                className="flex items-center gap-3 rounded-2xl px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100"
+                              >
+                                {Icon && <Icon className="h-4 w-4 shrink-0 text-brand-red" />}
+                                {s.label}
+                              </Link>
+                            </li>
+                          );
+                        })}
                       </ul>
                     )}
                   </div>
@@ -104,17 +112,21 @@ export default function Navbar() {
                 </Link>
                 {item.sub && (
                   <ul className="ml-4 flex flex-col gap-0.5 border-l border-gray-200 pl-3">
-                    {item.sub.map((s) => (
-                      <li key={s.key}>
-                        <Link
-                          href={s.href}
-                          className="block rounded-lg px-3 py-2 text-sm text-gray-600"
-                          onClick={() => setOpen(false)}
-                        >
-                          {s.label}
-                        </Link>
-                      </li>
-                    ))}
+                    {item.sub.map((s) => {
+                      const Icon = PLATFORM_ICONS[s.key];
+                      return (
+                        <li key={s.key}>
+                          <Link
+                            href={s.href}
+                            className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-gray-600"
+                            onClick={() => setOpen(false)}
+                          >
+                            {Icon && <Icon className="h-3.5 w-3.5 shrink-0 text-brand-red" />}
+                            {s.label}
+                          </Link>
+                        </li>
+                      );
+                    })}
                   </ul>
                 )}
               </li>
