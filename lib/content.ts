@@ -54,7 +54,6 @@ export const NAV = [
   { label: "Webdesign", href: "/webdesign", key: "webdesign" },
   { label: "Über uns", href: "/team", key: "team" },
   { label: "Referenzen", href: "/referenzen", key: "referenzen" },
-  { label: "Kontakt", href: "/kontakt", key: "kontakt" },
 ];
 
 export const BENEFITS = [
