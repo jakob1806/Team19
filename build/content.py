@@ -24,7 +24,6 @@ COMPANY = {
     "vat": "DE335811931",
     "directors": "Andreas Fleißner, Alexander Demharter, Frederic Fleißner",
     "founded": 2019,
-    "copyright": "Copyright © 2022 Team19 Media UG",
 }
 
 SOCIAL = [

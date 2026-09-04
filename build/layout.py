@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """Gemeinsames Seitengerüst: <head>, Header, Drawer, Footer, Icons, Formulare."""
 
+from datetime import date
+
 from content import (
     COMPANY, SOCIAL, HOURS, NAV, PLATFORM_NAV, CHANNELS, GOALS,
     CONSENT_TEXT,
@@ -176,6 +178,13 @@ def drawer():
 
 
 # --- Footer --------------------------------------------------------------
+def _copyright_line():
+    year = date.today().year
+    founded = COMPANY["founded"]
+    span = str(founded) if year <= founded else "%d–%d" % (founded, year)
+    return "Copyright © %s %s" % (span, COMPANY["name"] + " UG")
+
+
 def footer():
     social = "".join(
         '<a href="%s" target="_blank" rel="noopener noreferrer" '
@@ -239,7 +248,7 @@ def footer():
         "street": COMPANY["street"],
         "zip": COMPANY["zip"],
         "city": COMPANY["city"],
-        "copyright": COMPANY["copyright"],
+        "copyright": _copyright_line(),
     }
 
 
