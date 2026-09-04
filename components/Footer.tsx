@@ -14,7 +14,7 @@ function copyrightLine() {
   const year = new Date().getFullYear();
   const founded = COMPANY.founded;
   const span = year <= founded ? String(founded) : `${founded}–${year}`;
-  return `Copyright © ${span} ${COMPANY.name} UG`;
+  return `Copyright © ${span} ${COMPANY.legal}`;
 }
 
 export default function Footer() {
