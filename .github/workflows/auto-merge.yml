@@ -1,0 +1,27 @@
+name: Auto-merge PRs
+
+# Enables GitHub's native auto-merge on every pull request targeting main.
+# The PR then merges itself automatically as soon as the CI build (see
+# ci.yml) succeeds and there are no blocking reviews — no manual "merge"
+# click needed. Requires "Allow auto-merge" to be turned on once in the
+# repo settings (Settings → General → Pull Requests).
+
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize, ready_for_review]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  enable-auto-merge:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enable auto-merge (squash)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr merge --auto --squash "${{ github.event.pull_request.html_url }}" \
+            --repo "${{ github.repository }}"
