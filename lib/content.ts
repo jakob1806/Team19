@@ -160,33 +160,84 @@ export const SERVICES = [
 
 export type PlatformKey = "instagram" | "facebook" | "linkedin" | "tiktok";
 
-export const PLATFORMS: Record<
-  PlatformKey,
-  {
-    name: string;
-    navLabel: string;
-    title: string;
-    lead: string;
-    paras: string[];
-    extra: { title: string; paras: string[] } | null;
-    heroImg: string;
-    shots: string[];
-  }
-> = {
+/**
+ * Jede Plattform bekommt eigene Bausteine, nicht nur eigene Worte. Welche
+ * Bloecke gesetzt sind, entscheidet, wie die Seite aufgebaut ist: eine Seite
+ * mit `compare` sieht anders aus als eine mit `formats`. So unterscheiden sich
+ * die vier Seiten in der Struktur und nicht nur im Text.
+ */
+type ListBlock = {
+  title: string;
+  lead?: string;
+  items: { name: string; note: string }[];
+};
+
+type EssayBlock = { title: string; paras: string[] };
+
+type CompareBlock = {
+  title: string;
+  lead?: string;
+  columns: { name: string; note: string; points: string[] }[];
+};
+
+type Platform = {
+  name: string;
+  navLabel: string;
+  title: string;
+  lead: string;
+  /** Der kurze Einstieg. Zwei Absaetze, nicht mehr. */
+  intro: string[];
+  /** Formate, die auf dieser Plattform getragen werden. */
+  formats?: ListBlock;
+  /** Ziele, fuer die wir die Plattform einsetzen. */
+  useCases?: ListBlock;
+  /** Zwei Spalten im Vergleich. */
+  compare?: CompareBlock;
+  /** Ein laengerer Gedanke, der die Haltung zur Plattform erklaert. */
+  essay?: EssayBlock;
+  /** Die ehrliche Gegenrede. Steht als dunkle Flaeche und faellt bewusst auf. */
+  honest?: EssayBlock;
+  heroImg: string;
+  shots: string[];
+};
+
+export const PLATFORMS: Record<PlatformKey, Platform> = {
   instagram: {
     name: "Instagram",
     navLabel: "Instagram Marketing",
     title: "Instagram Marketing",
-    lead: "Glaubwürdigkeit und Kundenbindung - mit Bildern und Videos, die im Gedächtnis bleiben.",
-    paras: [
-      "Bei Social Media Marketing auf Instagram geht es um Glaubwürdigkeit und Kundenbindung, der Fokus liegt auf Bildern und Videos. Die Qualität der visuellen Inhalte und der Unterhaltungswert spielen eine nicht zu unterschätzende Rolle. Gleichzeitig ist die Wiedererkennung wichtig. Mittlerweile sind bewegte Bilder (also Videos) die Treiber dieses Mediums.",
-      "Für unsere Kunden empfehlen wir für Instagram Reels (kurze Videos) vor allem im Format des Digital Storytelling, so transportieren wir Inhalte kurz und spannend. Auf diese Weise nutzen wir die dynamische, erweiterte Visitenkarte zur Steigerung der Bekanntheit, Vergrößerung der Reichweite, dem Finden neuer MitarbeiterInnen oder der Förderung der Verkäufe (online und im Laden).",
-      "Nach der Definition der Zielgruppe führen wir eine Wettbewerbsanalyse durch, um zu ermitteln, welche Maßnahmen in der jeweiligen Branche gerade genutzt werden. Mit diesen Informationen planen wir, welche Inhalte, in welcher Frequenz und mit welchem Ziel wir veröffentlichen wollen. Diese Inhalte sind natürlich sowohl für Computer als auch für Tablets und Handys optimiert. Daraus erstellen wir den Redaktionsplan, der in einem Kalender aufzeigt, welche Aktivität wir wann planen. Dann gehen wir damit live und werten die Ergebnisse ständig aus, um eventuell Anpassungen an der Strategie vorzunehmen.",
+    lead: "Glaubwürdigkeit und Kundenbindung, mit Bildern und Videos, die im Gedächtnis bleiben.",
+    intro: [
+      "Auf Instagram entscheidet die Qualität der Bilder und der Unterhaltungswert darüber, ob jemand hängen bleibt. Bewegte Bilder tragen das Medium inzwischen fast allein, deshalb liegt unser Schwerpunkt auf Reels und nicht auf dem einzelnen Foto.",
+      "Vor dem ersten Post steht die Zielgruppe, danach die Wettbewerbsanalyse: Was läuft in Deiner Branche gerade, und was davon passt zu Dir. Daraus wird ein Redaktionsplan, der festhält, was wann und mit welchem Ziel erscheint. Nach dem Start werten wir laufend aus und justieren nach.",
     ],
-    extra: {
+    formats: {
+      title: "Die Formate, die wir bespielen",
+      lead: "Vier Formate, vier Aufgaben. Welches Gewicht sie bekommen, hängt von Deinem Ziel ab.",
+      items: [
+        {
+          name: "Reels",
+          note: "Kurze Videos im Hochformat. Unser Schwerpunkt, weil sie die Reichweite tragen und weil sie Menschen zeigen können statt nur Produkte.",
+        },
+        {
+          name: "Karussell",
+          note: "Mehrere Bilder in einem Beitrag. Gut für Schritt für Schritt erklärte Abläufe, für Vorher und Nachher und für Angebote, die Details brauchen.",
+        },
+        {
+          name: "Story",
+          note: "Vierundzwanzig Stunden sichtbar. Hier läuft der Alltag im Betrieb, Umfragen und alles, was nicht dauerhaft im Profil stehen muss.",
+        },
+        {
+          name: "Feed-Beitrag",
+          note: "Bleibt im Profil stehen und trägt die Bildsprache, an der Dein Kanal wiedererkannt wird.",
+        },
+      ],
+    },
+    essay: {
       title: "Wir legen Wert auf Digital Storytelling",
       paras: [
-        "Geschichten, die in Bildern erzählt werden, bleiben besser im Gedächtnis, sind leicht wieder abrufbar und fesseln die Aufmerksamkeit. Soziale Medien leben davon, dass die NutzerInnen durch qualitativ hochwertige Bilder und Videos unterhalten werden. Das ist der Grund, warum wir uns dem „digital storytelling“ verschrieben haben. Wir stellen Menschen vor, die etwas zu sagen haben und verbinden so den sozialen Aspekt mit der Expertise. Letztlich nimmt man nicht die Leistung eines Unternehmens in Anspruch, sondern immer die von Menschen.",
+        "Geschichten, die in Bildern erzählt werden, bleiben besser im Gedächtnis, sind leicht wieder abrufbar und fesseln die Aufmerksamkeit. Soziale Medien leben davon, dass die Nutzerinnen und Nutzer durch qualitativ hochwertige Bilder und Videos unterhalten werden. Das ist der Grund, warum wir uns dem digitalen Storytelling verschrieben haben.",
+        "Wir stellen Menschen vor, die etwas zu sagen haben, und verbinden so den sozialen Aspekt mit der Expertise. Letztlich nimmt man nicht die Leistung eines Unternehmens in Anspruch, sondern immer die von Menschen.",
       ],
     },
     heroImg: "/assets/photo/DSC09237Art.jpg",
@@ -197,16 +248,44 @@ export const PLATFORMS: Record<
       "/assets/work/spaetzuender-thumb.webp",
     ],
   },
+
   facebook: {
     name: "Facebook",
     navLabel: "Facebook Marketing",
     title: "Facebook Marketing",
-    lead: "Solide Content-Strategie und passgenaues Community Management - Post für Post aufgebaut.",
-    paras: [
-      "Unsere Veröffentlichungen auf Facebook basieren immer auf einer soliden Content-Strategie und einem passgenauen Community Management. Zielgruppen und zu erreichende Ziele müssen exakt definiert werden. Sobald die Bedürfnisse und Wünsche der potentiellen Kunden klar sind, erarbeiten wir gemeinsam mit Dir die strategische Vorgehensweise. Eine fundierte Wettbewerbsanalyse sowie ein Audit über bisherige Aktionen und zukünftige Aktivitäten bilden dann die Basis um loslegen zu können. Auch auf Facebook sind derzeit Inhalte in Form von digitalem Storytelling sehr erfolgreich.",
-      "All das fließt in einen Redaktionsplan ein. So bauen wir Stück für Stück Deinen Account auf und sichern so das Unterhaltungsmoment für die Zielgruppe. Einzelne Posts können durch gezielte Werbemaßnahmen unterstützt und gepusht werden.",
+    lead: "Solide Content-Strategie und passgenaues Community Management, Post für Post aufgebaut.",
+    intro: [
+      "Facebook ist für viele Betriebe die Plattform, auf der die eigenen Kunden tatsächlich sind. Der Kanal lebt weniger von Reichweitensprüngen als von Verlässlichkeit: regelmäßige Beiträge, beantwortete Kommentare, gepflegte Angaben.",
+      "Bevor wir loslegen, klären wir Zielgruppe und Ziel, machen eine Wettbewerbsanalyse und ein Audit der bisherigen Aktivitäten. Alles davon fließt in den Redaktionsplan. Einzelne Beiträge unterstützen wir gezielt mit Werbebudget, statt alles gleichmäßig zu bewerben.",
     ],
-    extra: null,
+    useCases: {
+      title: "Wofür wir Facebook einsetzen",
+      items: [
+        {
+          name: "Lokale Reichweite",
+          note: "Anzeigen lassen sich eng auf Umkreis, Alter und Interessen schneiden. Für Betriebe mit Einzugsgebiet ist das der präziseste Kanal, den wir haben.",
+        },
+        {
+          name: "Veranstaltungen",
+          note: "Termine, Aktionen und Tage der offenen Tür bekommen eine eigene Seite, die geteilt und erinnert wird.",
+        },
+        {
+          name: "Community Management",
+          note: "Kommentare und Nachrichten sind Kundenkontakt. Wir beantworten sie in Deinem Ton und melden zurück, was daraus zu lernen ist.",
+        },
+        {
+          name: "Zielgerichtete Anzeigen",
+          note: "Vom Entwurf bis zur laufenden Kampagne. Wir schalten auf Ziele, die sich messen lassen, nicht auf Gefallen.",
+        },
+      ],
+    },
+    honest: {
+      title: "Wann wir von Facebook abraten",
+      paras: [
+        "Wenn Deine Zielgruppe deutlich unter dreißig ist, liegt Dein Budget auf Instagram oder TikTok besser. Wir sagen das lieber im Erstgespräch als nach dem dritten Monat.",
+        "Und wenn niemand bei Euch Zeit hat, auf Kommentare und Nachrichten zu reagieren, dann ist eine gepflegte Seite ohne Community Management ehrlicher als eine, bei der Anfragen liegen bleiben. Auch das planen wir vorher mit ein.",
+      ],
+    },
     heroImg: "/assets/photo/DSC04715Art.jpg",
     shots: [
       "/assets/work/social-8.webp",
@@ -215,16 +294,61 @@ export const PLATFORMS: Record<
       "/assets/work/sitzmacher-thumb.webp",
     ],
   },
+
   linkedin: {
     name: "LinkedIn",
     navLabel: "LinkedIn Marketing",
     title: "LinkedIn Marketing",
     lead: "B2B-Sichtbarkeit mit klar definierten Zielen, Zielgruppen und einem belastbaren Redaktionsplan.",
-    paras: [
-      "Unsere Veröffentlichungen auf LinkedIn fangen ebenfalls mit einer soliden Content-Strategie und einem definierten Community Management an. Sowohl die Ziele als auch die Zielgruppen müssen exakt definiert sein. Mit einer Beschreibung der Bedürfnisse und Wünsche der potentiellen Kunden erarbeiten wir gemeinsam mit Dir die strategische Vorgehensweise. Bevor wir dann anfangen, folgt die fundierte Wettbewerbsanalyse sowie ein Audit über bisherige Aktionen und zukünftige Aktivitäten. Wie auch bei z.B. Facebook sind bei LinkedIn Inhalte in Form von digitalem Storytelling sehr erfolgreich.",
-      "All das fließt in den Redaktionsplan ein. Auch auf LinkedIn können wir gezielte Marketing-Maßnahmen platzieren, um Content zu pushen.",
+    intro: [
+      "Auf LinkedIn lesen Entscheider, Fachkräfte und mögliche neue Kolleginnen und Kollegen mit. Das verändert den Ton: Es geht weniger um Unterhaltung als darum, dass jemand nach dem Beitrag weiß, was Ihr könnt.",
+      "Der Weg dahin ist derselbe wie auf den anderen Kanälen: Ziele und Zielgruppen definieren, Wettbewerb und bisherige Aktivitäten prüfen, daraus einen Redaktionsplan bauen. Auch hier funktioniert digitales Storytelling, nur mit fachlichem Kern statt mit Pointe.",
     ],
-    extra: null,
+    compare: {
+      title: "Unternehmensseite und persönliches Profil",
+      lead: "Auf LinkedIn entsteht Reichweite bei Personen, Vertrauen bei der Marke. Beides zusammen wirkt, eines allein selten.",
+      columns: [
+        {
+          name: "Unternehmensseite",
+          note: "Die Adresse, auf die alles verweist.",
+          points: [
+            "Trägt Marke, Leistungen und offene Stellen",
+            "Ist der Absender für Anzeigen",
+            "Bleibt der Anlaufpunkt, wenn jemand Euch nachschlägt",
+          ],
+        },
+        {
+          name: "Persönliches Profil",
+          note: "Der Ort, an dem gelesen und geantwortet wird.",
+          points: [
+            "Beiträge von Menschen bekommen deutlich mehr Aufmerksamkeit",
+            "Fachliche Beiträge bauen Ruf im eigenen Feld auf",
+            "Wir schreiben zu, gepostet wird von Euch",
+          ],
+        },
+      ],
+    },
+    useCases: {
+      title: "Wofür wir LinkedIn einsetzen",
+      items: [
+        {
+          name: "Kunden im B2B",
+          note: "Sichtbarkeit bei den Menschen, die in Deiner Zielbranche über Budgets entscheiden.",
+        },
+        {
+          name: "Mitarbeitergewinnung",
+          note: "Wer bei Euch anfangen soll, schaut vorher nach, wie es bei Euch zugeht. Genau das zeigen wir.",
+        },
+        {
+          name: "Fachliche Sichtbarkeit",
+          note: "Beiträge, die eine Frage aus Eurem Alltag beantworten, statt Neuigkeiten über Euch selbst zu melden.",
+        },
+        {
+          name: "Netzwerk und Partner",
+          note: "Kontakt zu Lieferanten, Partnern und Verbänden, gepflegt statt einmalig geknüpft.",
+        },
+      ],
+    },
     heroImg: "/assets/photo/DSC04704Art.jpg",
     shots: [
       "/assets/work/linkedin-ecoblue.webp",
@@ -233,17 +357,44 @@ export const PLATFORMS: Record<
       "/assets/work/social-15.webp",
     ],
   },
+
   tiktok: {
     name: "TikTok",
     navLabel: "TikTok Marketing",
     title: "TikTok Marketing",
-    lead: "Kreativität, Humor und Qualität - Authentizität schlägt Perfektion.",
-    paras: [
-      "TikTok hat sich schon lange etabliert und ist nicht mehr das Medium nur für Jugendliche. Auch Unternehmen haben viele Möglichkeiten sich perfekt zu positionieren und Aufmerksamkeit zu bekommen.",
-      "Auf dieser Plattform ist es möglich, durch geringen Aufwand die digitale Visitenkarte dynamisch zu gestalten und das Branding aufzubauen.",
-      "Um TikTok zu effektiv zu nutzen, erstellen wir mit Kreativität, Humor und Qualität zielgruppengerechte Inhalte. Es geht nicht um Perfektion, sondern um Authentizität und Qualität. So erreichen wir genau Deine Zielgruppe und überzeugen durch sympathische Darstellung von Expertise und Kompetenz. Wir liefern Ideen, Skripte und erstellen den Inhalt mit unserem Team.",
+    lead: "Kreativität, Humor und Qualität. Authentizität schlägt Perfektion.",
+    intro: [
+      "TikTok ist längst nicht mehr das Medium nur für Jugendliche. Für Unternehmen ist es der Kanal, auf dem mit vergleichsweise geringem Aufwand Aufmerksamkeit entsteht, wenn man bereit ist, sich zu zeigen.",
+      "Wir liefern Ideen und Skripte und drehen mit unserem Team. Entscheidend ist nicht die Hochglanzoptik, sondern dass die Person vor der Kamera etwas kann und das auch rüberbringt.",
     ],
-    extra: null,
+    formats: {
+      title: "Was hier funktioniert",
+      items: [
+        {
+          name: "Hinter den Kulissen",
+          note: "Der Handgriff, den sonst niemand sieht. Das ist auf TikTok mehr wert als jedes Produktfoto.",
+        },
+        {
+          name: "Erklärt in dreißig Sekunden",
+          note: "Eine Frage, die Euch Kunden ständig stellen, kurz und ohne Umweg beantwortet.",
+        },
+        {
+          name: "Menschen aus dem Team",
+          note: "Wiedererkennbare Gesichter bauen schneller Bindung auf als ein Logo. Das gilt auch für die Personalsuche.",
+        },
+        {
+          name: "Trends, wenn sie passen",
+          note: "Wir greifen einen Trend auf, wenn er zu Euch passt. Nicht, weil er gerade läuft.",
+        },
+      ],
+    },
+    honest: {
+      title: "Was TikTok von Euch verlangt",
+      paras: [
+        "TikTok belohnt Frequenz. Ein Video im Monat bewegt nichts, egal wie gut es ist. Wer den Kanal ernst meint, plant regelmäßige Drehtage ein, an denen wir mehrere Videos auf einmal produzieren.",
+        "Und es braucht jemanden, der vor die Kamera geht. Das muss nicht die Geschäftsführung sein, aber es muss eine echte Person aus dem Betrieb sein. Wenn das für Euch nicht in Frage kommt, sagen wir das offen und legen das Budget auf einen Kanal, der ohne Gesichter auskommt.",
+      ],
+    },
     heroImg: "/assets/photo/DSC09246Art.jpg",
     shots: [
       "/assets/work/social-10-1.webp",
