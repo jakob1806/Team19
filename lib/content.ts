@@ -20,6 +20,10 @@ export const COMPANY = {
   founded: 2019,
 };
 
+export const GOOGLE_MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+  `${COMPANY.street}, ${COMPANY.zip} ${COMPANY.city}`
+)}`;
+
 export const SOCIAL = [
   { name: "Instagram", url: "https://www.instagram.com/team19.media/", key: "instagram" },
   { name: "Facebook", url: "https://www.facebook.com/Team19.media", key: "facebook" },
@@ -48,9 +52,8 @@ export const NAV = [
   { label: "Home", href: "/", key: "home" },
   { label: "Social Media", href: "/social-media", key: "social", sub: PLATFORM_NAV },
   { label: "Webdesign", href: "/webdesign", key: "webdesign" },
-  { label: "Unser Team", href: "/team", key: "team" },
+  { label: "Über uns", href: "/team", key: "team" },
   { label: "Referenzen", href: "/referenzen", key: "referenzen" },
-  { label: "Kontakt", href: "/kontakt", key: "kontakt" },
 ];
 
 // Kurzer, differenzierender USP-Riegel unter dem Hero (statt generischer Agentur-Floskeln).
@@ -244,7 +247,7 @@ export const HISTORY = [
 ];
 
 export const TEAM_INTRO =
-  "Heute sind wir zu fünft im Team: Alex und Frederic sind die Spezialisten bei den Themen Social Media, Online Marketing und online Shops. Beide haben den direkten persönlichen Kontakt zu unseren Kunden und kreieren Posts, Ads und – wenn nötig – erstellen sie zusammen mit den Kunden auch Content in Form von Fotos oder Videos. Dabei unterstützt uns auch unser Fotograf. Andreas macht bei uns das Backoffice und kümmert sich neben der Administration, den Steuern und Rechnungen auch um unsere internen Prozesse und schreibt die Texte. Außerdem haben wir noch einen Schüler bei uns im Team, der für uns immer die neuesten Trends auf den Socials im Blick hat.";
+  "Team19 Media wird von Frederic und Andreas Fleißner geführt. Frederic ist der Spezialist für Social Media, Online Marketing und Online Shops – er hat den direkten persönlichen Kontakt zu unseren Kunden und kreiert Posts, Ads und, wenn nötig, gemeinsam mit den Kunden auch Content in Form von Fotos oder Videos. Andreas macht bei uns das Backoffice und kümmert sich neben der Administration, den Steuern und Rechnungen auch um unsere internen Prozesse und schreibt die Texte.";
 
 export const MEMBERS = [
   {
@@ -260,27 +263,6 @@ export const MEMBERS = [
     photo: "/assets/team/andreas.webp",
     icon: null,
     bio: "Backoffice, Administration, Steuern und Rechnungen. Kümmert sich um unsere internen Prozesse und schreibt die Texte.",
-  },
-  {
-    name: "Alex",
-    role: "Social Media & Online Shops",
-    photo: null,
-    icon: "person",
-    bio: "Spezialist für Social Media, Online Marketing und Online Shops. Direkter persönlicher Kontakt zu unseren Kunden.",
-  },
-  {
-    name: "Unser Fotograf",
-    role: "Foto & Video",
-    photo: null,
-    icon: "camera",
-    bio: "Unterstützt bei der Erstellung von Content in Form von Fotos und Videos.",
-  },
-  {
-    name: "Unser Schüler",
-    role: "Trends & Recherche",
-    photo: null,
-    icon: "trend",
-    bio: "Hat für uns immer die neuesten Trends auf den Socials im Blick.",
   },
 ];
 

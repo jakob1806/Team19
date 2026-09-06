@@ -127,17 +127,23 @@ export default function Navbar() {
                 </Link>
                 {item.sub && (
                   <ul className="ml-4 flex flex-col gap-0.5 border-l border-gray-200 pl-3">
-                    {item.sub.map((s) => (
-                      <li key={s.key}>
-                        <Link
-                          href={s.href}
-                          className="block rounded-lg px-3 py-2 text-sm text-gray-600"
-                          onClick={() => setOpen(false)}
-                        >
-                          {s.label}
-                        </Link>
-                      </li>
-                    ))}
+                    {item.sub.map((s) => {
+                      const platform = PLATFORM_ICONS[s.key];
+                      return (
+                        <li key={s.key}>
+                          <Link
+                            href={s.href}
+                            className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-gray-600"
+                            onClick={() => setOpen(false)}
+                          >
+                            {platform && (
+                              <platform.Icon className={`h-3.5 w-3.5 shrink-0 ${platform.color}`} />
+                            )}
+                            {s.label}
+                          </Link>
+                        </li>
+                      );
+                    })}
                   </ul>
                 )}
               </li>

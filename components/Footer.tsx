@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { COMPANY, SOCIAL, PLATFORM_NAV } from "@/lib/content";
+import { Clock } from "lucide-react";
+import { COMPANY, SOCIAL, PLATFORM_NAV, HOURS, GOOGLE_MAPS_URL } from "@/lib/content";
 import { InstagramIcon, FacebookIcon, LinkedInIcon, TikTokIcon } from "./BrandIcons";
 
 const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -28,8 +29,8 @@ export default function Footer() {
   return (
     <footer className="bg-brand-ink bg-[#0b0c10] text-white">
       <div className="mx-auto max-w-7xl px-6 py-16">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
-          <div className="lg:col-span-1">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-5">
+          <div className="md:col-span-2 lg:col-span-1">
             <Image
               src="/assets/logo/team19-logo.webp"
               alt={COMPANY.name}
@@ -95,17 +96,12 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/team" className="hover:text-white">
-                  Unser Team
+                  Über uns
                 </Link>
               </li>
               <li>
                 <Link href="/referenzen" className="hover:text-white">
                   Referenzen
-                </Link>
-              </li>
-              <li>
-                <Link href="/kontakt" className="hover:text-white">
-                  Kontakt
                 </Link>
               </li>
             </ul>
@@ -127,11 +123,32 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                {COMPANY.street}
-                <br />
-                {COMPANY.zip} {COMPANY.city}
+                <a
+                  href={GOOGLE_MAPS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white"
+                >
+                  {COMPANY.street}
+                  <br />
+                  {COMPANY.zip} {COMPANY.city}
+                </a>
               </li>
             </ul>
+          </div>
+
+          <div>
+            <h4 className="flex items-center gap-1.5 text-sm font-semibold uppercase tracking-wide text-white/40">
+              <Clock className="h-3.5 w-3.5" /> Öffnungszeiten
+            </h4>
+            <dl className="mt-4 space-y-2 text-sm">
+              {HOURS.map((h) => (
+                <div key={h.day} className="flex items-center justify-between gap-4">
+                  <dt className="text-white/70">{h.day}</dt>
+                  <dd className="font-semibold text-white">{h.time}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
 
