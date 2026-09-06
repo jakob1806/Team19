@@ -142,7 +142,7 @@ export const BENEFITS = [
 export const SERVICES = [
   {
     title: "Content Creation",
-    text: "Wir sammeln Ideen, schreiben Skripte und Texte und drehen Fotos und Videos bei Dir vor Ort oder an einer passenden Location, abgestimmt auf Deinen Redaktionsplan.",
+    text: "Wir sammeln Ideen, schreiben Skripte und Texte und drehen Fotos und Videos bei Dir vor Ort oder an einer passenden Location, abgestimmt auf Deinen Redaktionsplan. Wo eine Aufnahme aus der Luft die bessere ist, kommt die Drohne mit.",
   },
   {
     title: "Werbekampagnen",
