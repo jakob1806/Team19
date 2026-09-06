@@ -50,11 +50,27 @@ export const PLATFORM_NAV = [
 
 export const NAV = [
   { label: "Home", href: "/", key: "home" },
-  { label: "Social Media", href: "/instagram", key: "social", sub: PLATFORM_NAV },
+  { label: "Social Media", href: "/social-media", key: "social", sub: PLATFORM_NAV },
   { label: "Webdesign", href: "/webdesign", key: "webdesign" },
   { label: "Über uns", href: "/team", key: "team" },
   { label: "Referenzen", href: "/referenzen", key: "referenzen" },
 ];
+
+// Kurzer, differenzierender USP-Riegel unter dem Hero (statt generischer Agentur-Floskeln).
+export const USPS = [
+  { label: "Seit 2019", text: "in München zuhause" },
+  { label: "5 Köpfe", text: "alles in-house, kein Outsourcing" },
+  { label: "Null Stock-Content", text: "nur echte Bilder & Videos" },
+  { label: "Direkter Draht", text: "zu Deinem Team, keine Warteschleife" },
+];
+
+// Übersichtsseite, die alle Social-Media-Kanäle bündelt (statt Direktsprung auf Instagram).
+export const SOCIAL_OVERVIEW = {
+  eyebrow: "Social Media Marketing",
+  title: "Eine Strategie. Vier Sprachen.",
+  lead:
+    "Instagram lebt von Bildern, LinkedIn von Substanz, TikTok von Tempo. Wir bespielen jede Plattform in ihrer eigenen Sprache, statt einen Post auf allen Kanälen zu recyceln.",
+};
 
 export const BENEFITS = [
   {
@@ -86,29 +102,23 @@ export const BENEFITS = [
 export const SERVICES = [
   {
     title: "Content Creation",
-    paras: [
-      "In den Sozialen Medien zählen Authentizität und Qualität. Es kommt darauf an, dass Du zeigst, wer Du bist und was Dein Ziel ist. Dazu gehören auch echte Bilder, aussagekräftige Texte und interessante Videos. Was auf keinen Fall mehr geht sind Stock-Bilder.",
-      "Wir haben viel Erfahrung, welche Medien wirken und womit die besten Effekte erzielt werden. Zusammen sammeln wir Ideen für Content, schreiben Skripte für Videos und schreiben schlagkräftige Texte. In Deinem Büro oder in einer coolen Lokation machen wir dann die Fotos und Videos, die wir gemäß dem Redaktionsplan posten.",
-    ],
+    icon: "Camera",
+    text: "Authentizität schlägt Stock-Bilder. Wir sammeln Ideen, schreiben Skripte und Texte und drehen Fotos & Videos bei Dir vor Ort oder an einer passenden Location – abgestimmt auf Deinen Redaktionsplan.",
   },
   {
     title: "Werbekampagnen",
-    paras: [
-      "Du willst einen ausgereiften Auftritt in den Sozialen Medien zum fairen Preis? Wir werben für dich auf den Plattformen deiner Wahl, um Kunden zu gewinnen oder Verkäufe zu erhöhen.",
-      "Um deine Reichweite oder Bekanntheit zu pushen, erstellen wir zunächst den Content mit der perfekten Botschaft. Vom Entwurf bis zur Schaltung von Ads (z.B. auf LinkedIn, Facebook, Instagram oder TikTok) kümmern wir uns um alles. Falls nötig, erstellt unser Fotograf die richtigen Bilder, aber z.B. auch Logos oder Videos.",
-    ],
+    icon: "Target",
+    text: "Vom Entwurf bis zur laufenden Anzeige: Wir entwickeln die Botschaft und schalten Ads auf LinkedIn, Facebook, Instagram und TikTok – bei Bedarf inklusive Foto, Video und Logo.",
   },
   {
     title: "Content Management",
-    paras: [
-      "Du willst die Pflege der Accounts in kompetente Hände geben? Wir beraten dich bezüglich deines online Auftritts und erstellen bei Bedarf auch Accounts oder verwalten die Kanäle. Durch regelmäßige Pflege der Accounts steigern wir deine Reichweite und Bekanntheit. Darauf aufbauend schalten wir targetierte Werbeanzeigen, die dein Produkt oder deine Dienstleistung optimal vermarkten.",
-    ],
+    icon: "Settings2",
+    text: "Wir übernehmen die Pflege Deiner Accounts, legen sie bei Bedarf neu an und bauen darauf aufbauend targetierte Werbeanzeigen, die Reichweite und Bekanntheit spürbar steigern.",
   },
   {
     title: "Auswertungen",
-    paras: [
-      "Du willst immer sehen können wie es läuft? Mit der anfänglichen Analyse schaffen wir einen guten Überblick über die Ausgangssituation. Durch kontinuierliche Auswertung der Insights erkennen wir genau, welche Zielgruppe passend ist und welche Kampagne den besten Effekt erzielt. Das ist für uns die Grundlage bei Bedarf die richtigen Stellschrauben zu justieren.",
-    ],
+    icon: "BarChart3",
+    text: "Erst die Analyse, dann die Justierung: Wir werten Insights laufend aus, erkennen die passende Zielgruppe und schärfen die Kampagne dort, wo sie den größten Hebel hat.",
   },
 ];
 

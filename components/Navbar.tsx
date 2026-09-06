@@ -8,11 +8,11 @@ import { NAV, COMPANY } from "@/lib/content";
 import PillButton from "./PillButton";
 import { InstagramIcon, FacebookIcon, LinkedInIcon, TikTokIcon } from "./BrandIcons";
 
-const PLATFORM_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
-  instagram: InstagramIcon,
-  facebook: FacebookIcon,
-  linkedin: LinkedInIcon,
-  tiktok: TikTokIcon,
+const PLATFORM_ICONS: Record<string, { Icon: React.ComponentType<{ className?: string }>; color: string }> = {
+  instagram: { Icon: InstagramIcon, color: "text-brand-instagram" },
+  facebook: { Icon: FacebookIcon, color: "text-brand-facebook" },
+  linkedin: { Icon: LinkedInIcon, color: "text-brand-linkedin" },
+  tiktok: { Icon: TikTokIcon, color: "text-[#0d0d0d]" },
 };
 
 export default function Navbar() {
@@ -22,12 +22,25 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-gray-100/80 bg-white/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4">
-        <Link href="/" aria-label={`${COMPANY.name} — Startseite`} className="shrink-0">
+        <Link
+          href="/"
+          aria-label={`${COMPANY.name} — Startseite`}
+          className="flex shrink-0 items-center gap-2.5"
+        >
+          <Image
+            src="/assets/logo/team19-icon-mark.png"
+            alt=""
+            width={36}
+            height={32}
+            className="h-8 w-auto"
+            priority
+          />
           <Image
             src="/assets/logo/team19-logo.webp"
             alt={COMPANY.name}
             width={160}
             height={55}
+            className="h-9 w-auto"
             priority
           />
         </Link>
@@ -52,14 +65,16 @@ export default function Navbar() {
                     {subOpen === item.key && (
                       <ul className="absolute left-0 top-full w-64 rounded-3xl border border-gray-200 bg-white p-2 shadow-xl">
                         {item.sub.map((s) => {
-                          const Icon = PLATFORM_ICONS[s.key];
+                          const platform = PLATFORM_ICONS[s.key];
                           return (
                             <li key={s.key}>
                               <Link
                                 href={s.href}
                                 className="flex items-center gap-3 rounded-2xl px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100"
                               >
-                                {Icon && <Icon className="h-4 w-4 shrink-0 text-brand-red" />}
+                                {platform && (
+                                  <platform.Icon className={`h-4 w-4 shrink-0 ${platform.color}`} />
+                                )}
                                 {s.label}
                               </Link>
                             </li>
@@ -113,7 +128,7 @@ export default function Navbar() {
                 {item.sub && (
                   <ul className="ml-4 flex flex-col gap-0.5 border-l border-gray-200 pl-3">
                     {item.sub.map((s) => {
-                      const Icon = PLATFORM_ICONS[s.key];
+                      const platform = PLATFORM_ICONS[s.key];
                       return (
                         <li key={s.key}>
                           <Link
@@ -121,7 +136,9 @@ export default function Navbar() {
                             className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-gray-600"
                             onClick={() => setOpen(false)}
                           >
-                            {Icon && <Icon className="h-3.5 w-3.5 shrink-0 text-brand-red" />}
+                            {platform && (
+                              <platform.Icon className={`h-3.5 w-3.5 shrink-0 ${platform.color}`} />
+                            )}
                             {s.label}
                           </Link>
                         </li>

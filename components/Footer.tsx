@@ -11,6 +11,13 @@ const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   tiktok: TikTokIcon,
 };
 
+const PLATFORM_COLORS: Record<string, string> = {
+  instagram: "text-brand-instagram",
+  facebook: "text-brand-facebook",
+  linkedin: "text-brand-linkedin",
+  tiktok: "text-white",
+};
+
 function copyrightLine() {
   const year = new Date().getFullYear();
   const founded = COMPANY.founded;
@@ -58,13 +65,22 @@ export default function Footer() {
               Social Media
             </h4>
             <ul className="mt-4 space-y-2 text-sm text-white/70">
-              {PLATFORM_NAV.map((p) => (
-                <li key={p.key}>
-                  <Link href={p.href} className="hover:text-white">
-                    {p.label}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link href="/social-media" className="hover:text-white">
+                  Alle Kanäle
+                </Link>
+              </li>
+              {PLATFORM_NAV.map((p) => {
+                const Icon = ICONS[p.key];
+                return (
+                  <li key={p.key}>
+                    <Link href={p.href} className="flex items-center gap-2 hover:text-white">
+                      {Icon && <Icon className={`h-3.5 w-3.5 shrink-0 ${PLATFORM_COLORS[p.key]}`} />}
+                      {p.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
