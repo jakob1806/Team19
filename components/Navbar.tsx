@@ -49,8 +49,8 @@ export default function Navbar() {
             alt=""
             width={36}
             height={32}
-            className="h-7 w-auto"
-            style={{ width: "auto", height: "auto" }}
+            className="w-auto"
+            style={{ height: 28, width: "auto" }}
             priority
           />
           <Image
@@ -58,8 +58,8 @@ export default function Navbar() {
             alt={COMPANY.name}
             width={160}
             height={55}
-            className="h-8 w-auto"
-            style={{ width: "auto", height: "auto" }}
+            className="w-auto"
+            style={{ height: 32, width: "auto" }}
             priority
           />
         </Link>

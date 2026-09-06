@@ -39,12 +39,9 @@ export default function HomePage() {
           The headline is the page's authored moment and reveals word by word. */}
       <section className="border-b border-rule-soft">
         <div className="mx-auto max-w-7xl px-6 pt-20 pb-14 md:pt-28 md:pb-20">
-          <p className="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">
-            Social Media und Webdesign aus München
-          </p>
           <WordReveal
             text={COMPANY.tagline}
-            className="mt-8 max-w-[16ch] text-[13vw] font-semibold leading-[0.92] tracking-[-0.035em] sm:text-[9vw] lg:text-[7.2vw]"
+            className="max-w-[16ch] text-[13vw] font-semibold leading-[0.92] tracking-[-0.035em] sm:text-[9vw] lg:text-[7.2vw]"
           />
           <div className="mt-10 flex flex-col gap-8 border-t border-rule-soft pt-8 md:flex-row md:items-end md:justify-between">
             <p className="max-w-[42ch] text-lg leading-relaxed text-ink-muted">

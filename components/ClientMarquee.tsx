@@ -26,8 +26,8 @@ export default function ClientMarquee({
                 alt={c.name}
                 width={112}
                 height={40}
-                className="max-h-10 w-auto object-contain"
-                style={{ width: "auto", height: "auto" }}
+                className="object-contain"
+                style={{ height: 32, width: "auto", maxWidth: 112 }}
                 loading="lazy"
               />
             </div>

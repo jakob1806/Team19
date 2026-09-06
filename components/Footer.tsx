@@ -38,8 +38,8 @@ export default function Footer() {
               alt={COMPANY.name}
               width={140}
               height={48}
-              className="h-8 w-auto"
-              style={{ width: "auto", height: "auto" }}
+              className="w-auto"
+              style={{ height: 32, width: "auto" }}
             />
             <p className="mt-5 max-w-[34ch] text-sm leading-relaxed text-ink-muted">
               {COMPANY.claim}
