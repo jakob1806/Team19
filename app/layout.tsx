@@ -29,8 +29,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
   },
   icons: {
-    icon: "/assets/logo/logo-transparent.png",
-    apple: "/assets/logo/logo-transparent.png",
+    icon: "/assets/logo/team19-icon-mark.png",
+    apple: "/assets/logo/team19-icon-mark.png",
   },
 };
 

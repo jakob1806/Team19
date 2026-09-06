@@ -1,17 +1,21 @@
 import Image from "next/image";
-import { Users, Megaphone, UsersRound, Sparkles } from "lucide-react";
+import { Users, Megaphone, UsersRound, Sparkles, Camera, Target, Settings2, BarChart3 } from "lucide-react";
 import Section from "@/components/Section";
 import PillButton from "@/components/PillButton";
 import { BentoGrid, BentoCard } from "@/components/BentoGrid";
 import CtaBand from "@/components/CtaBand";
 import ClientMarquee from "@/components/ClientMarquee";
-import { BENEFITS, SERVICES, PLATFORMS, PLATFORM_TEASER, COMPANY, HERO_PHOTOS } from "@/lib/content";
+import { BENEFITS, SERVICES, USPS, PLATFORMS, PLATFORM_TEASER, COMPANY, HERO_PHOTOS } from "@/lib/content";
 
 const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   Users,
   Megaphone,
   UsersRound,
   Sparkles,
+  Camera,
+  Target,
+  Settings2,
+  BarChart3,
 };
 
 export default function HomePage() {
@@ -23,7 +27,7 @@ export default function HomePage() {
         <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 lg:grid-cols-2">
           <div>
             <p className="inline-flex items-center rounded-full border border-gray-200 bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-gray-500 shadow-sm">
-              {COMPANY.subline}
+              Social Media Agentur aus München · seit 2019
             </p>
             <h1 className="mt-6 text-balance text-5xl font-extrabold tracking-tight text-gray-900 sm:text-6xl">
               {COMPANY.tagline}
@@ -34,6 +38,14 @@ export default function HomePage() {
               <PillButton href="/referenzen" variant="outline">
                 Referenzen ansehen
               </PillButton>
+            </div>
+            <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-gray-100 pt-6 sm:grid-cols-4 sm:gap-x-4">
+              {USPS.map((u) => (
+                <div key={u.label}>
+                  <p className="text-sm font-extrabold text-gray-900">{u.label}</p>
+                  <p className="mt-0.5 text-xs leading-snug text-gray-500">{u.text}</p>
+                </div>
+              ))}
             </div>
           </div>
           <div className="grid grid-cols-3 gap-3">
@@ -84,16 +96,18 @@ export default function HomePage() {
           Alles aus einer Hand
         </h2>
         <BentoGrid className="mt-12 md:grid-cols-2">
-          {SERVICES.map((s) => (
-            <BentoCard key={s.title}>
-              <h3 className="text-xl font-bold text-gray-900">{s.title}</h3>
-              <div className="mt-3 space-y-3 text-sm leading-relaxed text-gray-600">
-                {s.paras.map((p, i) => (
-                  <p key={i}>{p}</p>
-                ))}
-              </div>
-            </BentoCard>
-          ))}
+          {SERVICES.map((s) => {
+            const Icon = ICONS[s.icon] ?? Sparkles;
+            return (
+              <BentoCard key={s.title}>
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-red/10 text-brand-red">
+                  <Icon className="h-5 w-5" />
+                </div>
+                <h3 className="mt-5 text-xl font-bold text-gray-900">{s.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-gray-600">{s.text}</p>
+              </BentoCard>
+            );
+          })}
         </BentoGrid>
       </Section>
 

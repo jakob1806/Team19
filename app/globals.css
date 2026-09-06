@@ -29,6 +29,9 @@ body {
     gap: 3.5rem;
     align-items: center;
   }
+  .marquee--pausable:hover .marquee__track {
+    animation-play-state: paused;
+  }
   @keyframes marquee {
     from {
       transform: translateX(0);
@@ -36,5 +39,26 @@ body {
     to {
       transform: translateX(-50%);
     }
+  }
+  .bg-radial-fade {
+    animation: drift 14s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(2%, 3%) scale(1.06);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-radial-fade {
+    animation: none;
+  }
+  .marquee__track {
+    animation-duration: 90s;
   }
 }
