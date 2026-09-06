@@ -10,30 +10,42 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-plus-jakarta)", "Plus Jakarta Sans", "Inter", "system-ui", "sans-serif"],
+        // One grotesque for the whole site, the way jvm.com and sp.design each
+        // run a single house face. Geist is self-hosted through the npm package.
+        sans: ["var(--font-geist-sans)", "Helvetica Neue", "Helvetica", "sans-serif"],
+        mono: ["var(--font-geist-mono)", "ui-monospace", "monospace"],
       },
       colors: {
-        emerald: {
-          accent: "#10b981",
+        paper: {
+          DEFAULT: "var(--paper)",
+          sunk: "var(--paper-sunk)",
         },
-        purple: {
-          accent: "#8b5cf6",
+        ink: {
+          DEFAULT: "var(--ink)",
+          muted: "var(--ink-muted)",
+          faint: "var(--ink-faint)",
+        },
+        rule: {
+          DEFAULT: "var(--rule)",
+          soft: "var(--rule-soft)",
         },
         brand: {
-          red: "#e01d33",
+          red: "var(--brand-red)",
+          "red-ink": "var(--brand-red-ink)",
           instagram: "#e1306c",
           facebook: "#1877f2",
           linkedin: "#0a66c2",
-          tiktok: "#25f4ee",
-          ink: "#0b0c10",
+          tiktok: "#0d0d0d",
         },
       },
+      // Shape lock: surfaces 12px, controls 8px. Nothing else is offered.
       borderRadius: {
-        "4xl": "2rem",
+        surface: "var(--r-surface)",
+        control: "var(--r-control)",
       },
-      backgroundImage: {
-        "radial-fade":
-          "radial-gradient(60% 60% at 50% 0%, rgba(224,29,51,0.18) 0%, rgba(224,29,51,0) 70%)",
+      transitionTimingFunction: {
+        out: "var(--ease-out)",
+        mask: "var(--ease-mask)",
       },
     },
   },

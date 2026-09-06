@@ -2,29 +2,46 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { CaretDown, List, X } from "@phosphor-icons/react";
 import { NAV, COMPANY } from "@/lib/content";
-import PillButton from "./PillButton";
+import Button from "./Button";
 import { InstagramIcon, FacebookIcon, LinkedInIcon, TikTokIcon } from "./BrandIcons";
 
-const PLATFORM_ICONS: Record<string, { Icon: React.ComponentType<{ className?: string }>; color: string }> = {
+const PLATFORM_ICONS: Record<
+  string,
+  { Icon: React.ComponentType<{ className?: string }>; color: string }
+> = {
   instagram: { Icon: InstagramIcon, color: "text-brand-instagram" },
   facebook: { Icon: FacebookIcon, color: "text-brand-facebook" },
   linkedin: { Icon: LinkedInIcon, color: "text-brand-linkedin" },
-  tiktok: { Icon: TikTokIcon, color: "text-[#0d0d0d]" },
+  tiktok: { Icon: TikTokIcon, color: "text-brand-tiktok" },
 };
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [subOpen, setSubOpen] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
+
+  // The bar keeps a hairline only once the page has left the top, so the hero
+  // opens without a line across it.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-100/80 bg-white/80 backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4">
+    <header
+      className={`sticky top-0 z-50 bg-paper/85 backdrop-blur-md transition-colors duration-300 ease-out ${
+        scrolled ? "border-b border-rule-soft" : "border-b border-transparent"
+      }`}
+    >
+      <div className="mx-auto flex h-[68px] max-w-7xl items-center justify-between gap-4 px-6">
         <Link
           href="/"
-          aria-label={`${COMPANY.name} — Startseite`}
+          aria-label={`${COMPANY.name}, Startseite`}
           className="flex shrink-0 items-center gap-2.5"
         >
           <Image
@@ -32,7 +49,8 @@ export default function Navbar() {
             alt=""
             width={36}
             height={32}
-            className="h-8 w-auto"
+            className="h-7 w-auto"
+            style={{ width: "auto", height: "auto" }}
             priority
           />
           <Image
@@ -40,7 +58,8 @@ export default function Navbar() {
             alt={COMPANY.name}
             width={160}
             height={55}
-            className="h-9 w-auto"
+            className="h-8 w-auto"
+            style={{ width: "auto", height: "auto" }}
             priority
           />
         </Link>
@@ -51,42 +70,43 @@ export default function Navbar() {
               <li key={item.key} className="relative">
                 {item.sub ? (
                   <div
-                    className="group"
                     onMouseEnter={() => setSubOpen(item.key)}
                     onMouseLeave={() => setSubOpen(null)}
                   >
                     <Link
                       href={item.href}
-                      className="flex items-center gap-1 rounded-full px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900"
+                      className="flex items-center gap-1.5 rounded-control px-3 py-2 text-sm font-medium text-ink-muted transition-colors duration-200 hover:text-ink"
                     >
                       {item.label}
-                      <ChevronDown className="h-3.5 w-3.5" />
+                      <CaretDown weight="bold" className="h-3 w-3" />
                     </Link>
-                    {subOpen === item.key && (
-                      <ul className="absolute left-0 top-full w-64 rounded-3xl border border-gray-200 bg-white p-2 shadow-xl">
+                    {subOpen === item.key ? (
+                      <ul className="absolute left-0 top-full w-60 overflow-hidden rounded-surface border border-rule bg-paper p-1.5">
                         {item.sub.map((s) => {
                           const platform = PLATFORM_ICONS[s.key];
                           return (
                             <li key={s.key}>
                               <Link
                                 href={s.href}
-                                className="flex items-center gap-3 rounded-2xl px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100"
+                                className="flex items-center gap-3 rounded-control px-3 py-2.5 text-sm text-ink-muted transition-colors duration-150 hover:bg-paper-sunk hover:text-ink"
                               >
-                                {platform && (
-                                  <platform.Icon className={`h-4 w-4 shrink-0 ${platform.color}`} />
-                                )}
+                                {platform ? (
+                                  <platform.Icon
+                                    className={`h-4 w-4 shrink-0 ${platform.color}`}
+                                  />
+                                ) : null}
                                 {s.label}
                               </Link>
                             </li>
                           );
                         })}
                       </ul>
-                    )}
+                    ) : null}
                   </div>
                 ) : (
                   <Link
                     href={item.href}
-                    className="rounded-full px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900"
+                    className="rounded-control px-3 py-2 text-sm font-medium text-ink-muted transition-colors duration-200 hover:text-ink"
                   >
                     {item.label}
                   </Link>
@@ -97,65 +117,67 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden lg:block">
-          <PillButton href="/kontakt" size="sm">
+          <Button href="/kontakt" size="sm">
             Beratungstermin anfordern
-          </PillButton>
+          </Button>
         </div>
 
         <button
           type="button"
           aria-expanded={open}
-          aria-label="Menü öffnen"
-          className="rounded-full p-2 text-gray-900 lg:hidden"
+          aria-label={open ? "Menü schließen" : "Menü öffnen"}
+          className="-mr-2 rounded-control p-2 text-ink lg:hidden"
           onClick={() => setOpen((o) => !o)}
         >
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          {open ? <X className="h-6 w-6" /> : <List className="h-6 w-6" />}
         </button>
       </div>
 
-      {open && (
-        <div className="border-t border-gray-100 bg-white px-6 py-4 lg:hidden">
-          <ul className="flex flex-col gap-1">
+      {open ? (
+        <div className="border-t border-rule-soft bg-paper px-6 py-4 lg:hidden">
+          <ul className="flex flex-col">
             {NAV.map((item) => (
-              <li key={item.key}>
+              <li key={item.key} className="border-b border-rule-soft last:border-b-0">
                 <Link
                   href={item.href}
-                  className="block rounded-xl px-3 py-2.5 font-semibold text-gray-800"
+                  className="block py-3 text-base font-medium"
                   onClick={() => setOpen(false)}
                 >
                   {item.label}
                 </Link>
-                {item.sub && (
-                  <ul className="ml-4 flex flex-col gap-0.5 border-l border-gray-200 pl-3">
+                {item.sub ? (
+                  <ul className="mb-3 flex flex-col gap-0.5 pl-1">
                     {item.sub.map((s) => {
                       const platform = PLATFORM_ICONS[s.key];
                       return (
                         <li key={s.key}>
                           <Link
                             href={s.href}
-                            className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-gray-600"
+                            className="flex items-center gap-2.5 py-2 text-sm text-ink-muted"
                             onClick={() => setOpen(false)}
                           >
-                            {platform && (
-                              <platform.Icon className={`h-3.5 w-3.5 shrink-0 ${platform.color}`} />
-                            )}
+                            {platform ? (
+                              <platform.Icon
+                                className={`h-3.5 w-3.5 shrink-0 ${platform.color}`}
+                              />
+                            ) : null}
                             {s.label}
                           </Link>
                         </li>
                       );
                     })}
                   </ul>
-                )}
+                ) : null}
               </li>
             ))}
           </ul>
-          <div className="mt-4">
-            <PillButton href="/kontakt" size="sm" className="w-full justify-center">
+          <div className="mt-5">
+            <Button href="/kontakt" size="sm" className="w-full justify-center">
               Beratungstermin anfordern
-            </PillButton>
+            </Button>
           </div>
         </div>
-      )}
+      ) : null}
     </header>
   );
 }

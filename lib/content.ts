@@ -36,7 +36,7 @@ export const SOCIAL = [
 ];
 
 export const HOURS = [
-  { day: "Montag – Freitag", time: "08:00 – 18:00 Uhr" },
+  { day: "Montag - Freitag", time: "08:00 - 18:00 Uhr" },
   { day: "Samstag", time: "Geschlossen" },
   { day: "Sonntag", time: "Geschlossen" },
 ];
@@ -56,12 +56,52 @@ export const NAV = [
   { label: "Referenzen", href: "/referenzen", key: "referenzen" },
 ];
 
-// Kurzer, differenzierender USP-Riegel unter dem Hero (statt generischer Agentur-Floskeln).
+// Die Punkte, die Team19 von einer austauschbaren Agentur trennen. Stehen als
+// eigener Abschnitt unter dem Hero, nicht im Hero selbst.
 export const USPS = [
-  { label: "Seit 2019", text: "in München zuhause" },
-  { label: "5 Köpfe", text: "alles in-house, kein Outsourcing" },
-  { label: "Null Stock-Content", text: "nur echte Bilder & Videos" },
-  { label: "Direkter Draht", text: "zu Deinem Team, keine Warteschleife" },
+  {
+    label: "Kein Stock-Material",
+    text: "Jedes Bild und jedes Video entsteht bei Dir vor Ort. Wir kaufen nichts aus einer Datenbank zu.",
+  },
+  {
+    label: "Zwei Ansprechpartner",
+    text: "Frederic und Andreas. Keine Projektmanager-Kette, kein wechselndes Team, keine Warteschleife.",
+  },
+  {
+    label: "Alles im Haus",
+    text: "Konzept, Kamera, Schnitt, Anzeigen und Auswertung laufen unter einem Dach. Nichts wird ausgelagert.",
+  },
+  {
+    label: "Seit 2019 in München",
+    text: "Wir sitzen in Pullach und drehen dort, wo unsere Kunden arbeiten. Meist in unter einer Stunde erreichbar.",
+  },
+];
+
+// Das eine Statement der Startseite. Läuft beim Scrollen von Grau auf Schwarz
+// durch, mit dem Markenrot an der Lesekante.
+export const STATEMENT =
+  "Die meisten Agenturen zeigen Dir am Ende einen Report. Wir zeigen Dir Deine Kunden. Deshalb stehen wir mit der Kamera in Deiner Werkstatt, statt Stockbilder zu lizenzieren, und deshalb kennt Dein Ansprechpartner Deinen Betrieb, nicht nur Deinen Account.";
+
+// Die Arbeiten als gestapelte Vollbild-Panels. `video` bleibt leer, bis das
+// Filmmaterial da ist; bis dahin trägt das Standbild das Panel.
+// Poster im Querformat, weil die Panels bildschirmfüllend laufen. Die
+// Hochkant-Screenshots der Kanäle liegen weiterhin unter WORK.
+export const REEL: { title: string; note: string; img: string; video?: string }[] = [
+  {
+    title: "Content, der vor Ort entsteht",
+    note: "Wir drehen in Werkstatt, Laden und Büro. Was Du siehst, ist Dein Betrieb.",
+    img: "/assets/photo/DSC09237Art.jpg",
+  },
+  {
+    title: "Bewegtbild statt Standbild",
+    note: "Reels und Kurzvideos im Hochformat, geschnitten für den Feed.",
+    img: "/assets/photo/DSC09246Art.jpg",
+  },
+  {
+    title: "Kampagnen, die laufen",
+    note: "Anzeigenmotive für Instagram, Facebook, LinkedIn und TikTok.",
+    img: "/assets/photo/DSC04671Art.jpg",
+  },
 ];
 
 // Übersichtsseite, die alle Social-Media-Kanäle bündelt (statt Direktsprung auf Instagram).
@@ -72,52 +112,48 @@ export const SOCIAL_OVERVIEW = {
     "Instagram lebt von Bildern, LinkedIn von Substanz, TikTok von Tempo. Wir bespielen jede Plattform in ihrer eigenen Sprache, statt einen Post auf allen Kanälen zu recyceln.",
 };
 
+// Die vier Ziele, mit denen Kunden zu uns kommen. Icons aus Phosphor, ein
+// Strichgewicht für alle.
 export const BENEFITS = [
   {
-    icon: "Users",
+    icon: "UserPlus",
     title: "Neue Kunden finden",
-    text:
-      "Kurbele deine Verkäufe an – online oder im Laden. Wir erstellen professionellen Content, posten dein Angebot und schalten zielgenaue Anzeigen.",
+    text: "Wir erstellen den Content, posten Dein Angebot und schalten Anzeigen auf die Menschen, die tatsächlich kaufen. Online wie im Laden.",
   },
   {
     icon: "Megaphone",
     title: "Bekanntheit steigern",
-    text:
-      "Erreiche deine Zielgruppe passgenau und erhöhe deine Bekanntheit. Wir bauen deine digitale Visitenkarte auf den Sozialen Medien auf.",
+    text: "Wir bauen Deine digitale Visitenkarte auf den Sozialen Medien auf und bringen sie vor Deine Zielgruppe, nicht vor irgendeine.",
   },
   {
-    icon: "UsersRound",
-    title: "Dein Team erweitern",
-    text:
-      "Du willst neue MitarbeiterInnen finden, weißt aber nicht wie? Dann machen wir das für dich, genau da, wo sie zu finden sind – in den Sozialen Medien.",
+    icon: "UsersThree",
+    title: "Mitarbeiter gewinnen",
+    text: "Deine nächsten Kolleginnen und Kollegen scrollen schon. Wir zeigen ihnen dort, wie es ist, bei Dir zu arbeiten.",
   },
   {
-    icon: "Sparkles",
-    title: "Image aufbauen/gestalten",
-    text:
-      "Erzähle der Welt von deinem Business und stelle deine Leistungen und die Kompetenzen deines Teams vor.",
+    icon: "Sparkle",
+    title: "Image aufbauen",
+    text: "Wir stellen die Menschen hinter Deinem Betrieb vor und machen aus Leistungen eine Geschichte, die hängen bleibt.",
   },
 ];
 
+// Leistungen als nummerierte Liste, nicht als Kartenraster. Die Reihenfolge
+// entspricht dem tatsächlichen Ablauf eines Projekts.
 export const SERVICES = [
   {
     title: "Content Creation",
-    icon: "Camera",
-    text: "Authentizität schlägt Stock-Bilder. Wir sammeln Ideen, schreiben Skripte und Texte und drehen Fotos & Videos bei Dir vor Ort oder an einer passenden Location – abgestimmt auf Deinen Redaktionsplan.",
+    text: "Wir sammeln Ideen, schreiben Skripte und Texte und drehen Fotos und Videos bei Dir vor Ort oder an einer passenden Location, abgestimmt auf Deinen Redaktionsplan.",
   },
   {
     title: "Werbekampagnen",
-    icon: "Target",
-    text: "Vom Entwurf bis zur laufenden Anzeige: Wir entwickeln die Botschaft und schalten Ads auf LinkedIn, Facebook, Instagram und TikTok – bei Bedarf inklusive Foto, Video und Logo.",
+    text: "Vom Entwurf bis zur laufenden Anzeige: Wir entwickeln die Botschaft und schalten Ads auf LinkedIn, Facebook, Instagram und TikTok, bei Bedarf inklusive Foto, Video und Logo.",
   },
   {
     title: "Content Management",
-    icon: "Settings2",
-    text: "Wir übernehmen die Pflege Deiner Accounts, legen sie bei Bedarf neu an und bauen darauf aufbauend targetierte Werbeanzeigen, die Reichweite und Bekanntheit spürbar steigern.",
+    text: "Wir übernehmen die Pflege Deiner Accounts, legen sie bei Bedarf neu an und bauen darauf aufbauend Werbeanzeigen, die Reichweite und Bekanntheit spürbar steigern.",
   },
   {
     title: "Auswertungen",
-    icon: "BarChart3",
     text: "Erst die Analyse, dann die Justierung: Wir werten Insights laufend aus, erkennen die passende Zielgruppe und schärfen die Kampagne dort, wo sie den größten Hebel hat.",
   },
 ];
@@ -141,7 +177,7 @@ export const PLATFORMS: Record<
     name: "Instagram",
     navLabel: "Instagram Marketing",
     title: "Instagram Marketing",
-    lead: "Glaubwürdigkeit und Kundenbindung – mit Bildern und Videos, die im Gedächtnis bleiben.",
+    lead: "Glaubwürdigkeit und Kundenbindung - mit Bildern und Videos, die im Gedächtnis bleiben.",
     paras: [
       "Bei Social Media Marketing auf Instagram geht es um Glaubwürdigkeit und Kundenbindung, der Fokus liegt auf Bildern und Videos. Die Qualität der visuellen Inhalte und der Unterhaltungswert spielen eine nicht zu unterschätzende Rolle. Gleichzeitig ist die Wiedererkennung wichtig. Mittlerweile sind bewegte Bilder (also Videos) die Treiber dieses Mediums.",
       "Für unsere Kunden empfehlen wir für Instagram Reels (kurze Videos) vor allem im Format des Digital Storytelling, so transportieren wir Inhalte kurz und spannend. Auf diese Weise nutzen wir die dynamische, erweiterte Visitenkarte zur Steigerung der Bekanntheit, Vergrößerung der Reichweite, dem Finden neuer MitarbeiterInnen oder der Förderung der Verkäufe (online und im Laden).",
@@ -165,7 +201,7 @@ export const PLATFORMS: Record<
     name: "Facebook",
     navLabel: "Facebook Marketing",
     title: "Facebook Marketing",
-    lead: "Solide Content-Strategie und passgenaues Community Management – Post für Post aufgebaut.",
+    lead: "Solide Content-Strategie und passgenaues Community Management - Post für Post aufgebaut.",
     paras: [
       "Unsere Veröffentlichungen auf Facebook basieren immer auf einer soliden Content-Strategie und einem passgenauen Community Management. Zielgruppen und zu erreichende Ziele müssen exakt definiert werden. Sobald die Bedürfnisse und Wünsche der potentiellen Kunden klar sind, erarbeiten wir gemeinsam mit Dir die strategische Vorgehensweise. Eine fundierte Wettbewerbsanalyse sowie ein Audit über bisherige Aktionen und zukünftige Aktivitäten bilden dann die Basis um loslegen zu können. Auch auf Facebook sind derzeit Inhalte in Form von digitalem Storytelling sehr erfolgreich.",
       "All das fließt in einen Redaktionsplan ein. So bauen wir Stück für Stück Deinen Account auf und sichern so das Unterhaltungsmoment für die Zielgruppe. Einzelne Posts können durch gezielte Werbemaßnahmen unterstützt und gepusht werden.",
@@ -201,7 +237,7 @@ export const PLATFORMS: Record<
     name: "TikTok",
     navLabel: "TikTok Marketing",
     title: "TikTok Marketing",
-    lead: "Kreativität, Humor und Qualität – Authentizität schlägt Perfektion.",
+    lead: "Kreativität, Humor und Qualität - Authentizität schlägt Perfektion.",
     paras: [
       "TikTok hat sich schon lange etabliert und ist nicht mehr das Medium nur für Jugendliche. Auch Unternehmen haben viele Möglichkeiten sich perfekt zu positionieren und Aufmerksamkeit zu bekommen.",
       "Auf dieser Plattform ist es möglich, durch geringen Aufwand die digitale Visitenkarte dynamisch zu gestalten und das Branding aufzubauen.",
@@ -222,7 +258,7 @@ export const PLATFORM_TEASER: Record<PlatformKey, string> = {
   instagram: "Bilder, Reels und Digital Storytelling für Glaubwürdigkeit und Kundenbindung.",
   facebook: "Content-Strategie und Community Management mit gezielten Werbemaßnahmen.",
   linkedin: "Fundierte B2B-Strategie mit Wettbewerbsanalyse und Redaktionsplan.",
-  tiktok: "Kreativ, humorvoll, authentisch – dynamische Markenbildung mit Reichweite.",
+  tiktok: "Kreativ, humorvoll, authentisch - dynamische Markenbildung mit Reichweite.",
 };
 
 export const VALUES = [
@@ -243,11 +279,11 @@ export const VALUES = [
 
 export const HISTORY = [
   "Angefangen haben wir 2019 mit Social Media Marketing für ein bekanntes Immobilienbüro im Münchner Süden. Dort haben wir vom Marketing über Social Media Management alles Leistungen erbracht, die für einen neuen, erfolgreichen Auftritt in Social Media nötig warten. Aufgrund dieser sehr positiven Erfahrung haben wir unsere Leistung auch für andere Kunden in anderen Branchen ausgeweitet.",
-  "Im Sommer 2020 haben wir uns dann entschlossen, daraus unseren Beruf zu machen und haben unsere eigene Firma gegründet: Team19 Media UG – Social Media Marketing Agentur. Mittlerweile haben wir Kunden verschiedener Größe innerhalb und außerhalb Deutschlands.",
+  "Im Sommer 2020 haben wir uns dann entschlossen, daraus unseren Beruf zu machen und haben unsere eigene Firma gegründet: Team19 Media UG - Social Media Marketing Agentur. Mittlerweile haben wir Kunden verschiedener Größe innerhalb und außerhalb Deutschlands.",
 ];
 
 export const TEAM_INTRO =
-  "Team19 Media wird von Frederic und Andreas Fleißner geführt. Frederic ist der Spezialist für Social Media, Online Marketing und Online Shops – er hat den direkten persönlichen Kontakt zu unseren Kunden und kreiert Posts, Ads und, wenn nötig, gemeinsam mit den Kunden auch Content in Form von Fotos oder Videos. Andreas macht bei uns das Backoffice und kümmert sich neben der Administration, den Steuern und Rechnungen auch um unsere internen Prozesse und schreibt die Texte.";
+  "Team19 Media wird von Frederic und Andreas Fleißner geführt. Frederic ist der Spezialist für Social Media, Online Marketing und Online Shops - er hat den direkten persönlichen Kontakt zu unseren Kunden und kreiert Posts, Ads und, wenn nötig, gemeinsam mit den Kunden auch Content in Form von Fotos oder Videos. Andreas macht bei uns das Backoffice und kümmert sich neben der Administration, den Steuern und Rechnungen auch um unsere internen Prozesse und schreibt die Texte.";
 
 export const MEMBERS = [
   {
@@ -320,7 +356,7 @@ export const WORK = [
   },
   {
     cat: "webdesign",
-    title: "ERS – Elektrotechnik GmbH",
+    title: "ERS - Elektrotechnik GmbH",
     desc: "Eine Webseite für eine Elektrotechnik Firma mit Sitz in Garching bei München",
     img: "/assets/work/ers.webp",
   },

@@ -1,4 +1,4 @@
-// Marken-Icons als Inline-SVG (lucide-react führt keine Markenlogos mehr).
+// Marken-Icons als Inline-SVG. Icon-Bibliotheken führen keine Markenlogos mehr.
 type Props = { className?: string };
 
 export function InstagramIcon({ className }: Props) {

@@ -17,16 +17,18 @@ export default function WorkGrid() {
 
   return (
     <div>
-      <div className="flex flex-wrap justify-center gap-2">
+      {/* Filters are the one place pills are allowed: small controls, not surfaces. */}
+      <div className="flex flex-wrap gap-2 border-b border-rule-soft pb-6">
         {FILTERS.map((f) => (
           <button
             key={f.key}
             type="button"
             onClick={() => setActive(f.key)}
-            className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${
+            aria-pressed={active === f.key}
+            className={`rounded-full px-4 py-1.5 text-sm transition-colors duration-200 ${
               active === f.key
-                ? "bg-brand-red text-white shadow-lg shadow-red-600/20"
-                : "border border-gray-300 text-gray-700 hover:border-gray-900"
+                ? "bg-ink text-white"
+                : "border border-rule text-ink-muted hover:border-ink hover:text-ink"
             }`}
           >
             {f.label}
@@ -34,25 +36,31 @@ export default function WorkGrid() {
         ))}
       </div>
 
-      <div className="mt-10 columns-1 gap-6 sm:columns-2 lg:columns-3">
+      <div className="mt-10 columns-1 gap-5 sm:columns-2 lg:columns-3">
         {items.map((item) => (
-          <div
-            key={item.title}
-            className="mb-6 break-inside-avoid overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl"
-          >
-            <div className="relative aspect-[4/5]">
-              <Image src={item.img} alt={item.title} fill sizes="400px" className="object-cover" />
+          <figure key={item.title} className="mb-5 break-inside-avoid">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-surface bg-paper-sunk">
+              <Image
+                src={item.img}
+                alt={item.title}
+                fill
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                className="object-cover"
+              />
             </div>
-            <div className="p-5">
-              <span className="text-xs font-semibold uppercase tracking-wide text-brand-red">
-                {FILTERS.find((f) => f.key === item.cat)?.label}
-              </span>
-              <h3 className="mt-1 text-base font-bold text-gray-900">{item.title}</h3>
-              <p className="mt-1 text-sm text-gray-600">{item.desc}</p>
-            </div>
-          </div>
+            <figcaption className="mt-3">
+              <h3 className="text-base font-medium">{item.title}</h3>
+              <p className="mt-1 text-sm leading-relaxed text-ink-muted">{item.desc}</p>
+            </figcaption>
+          </figure>
         ))}
       </div>
+
+      {items.length === 0 ? (
+        <p className="py-16 text-center text-ink-muted">
+          In dieser Kategorie liegt noch nichts. Wähle eine andere aus.
+        </p>
+      ) : null}
     </div>
   );
 }

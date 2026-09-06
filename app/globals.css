@@ -1,64 +1,253 @@
 @import "tailwindcss";
 @config "../tailwind.config.ts";
 
+/* --------------------------------------------------------------------------
+   Design tokens. Flat white, one accent (the logo red), one grey family.
+   Shape lock: surfaces 12px, controls 8px, only small chips are pills.
+   -------------------------------------------------------------------------- */
 :root {
   --brand-red: #e01d33;
+  --brand-red-ink: #b3162a;
+
+  --paper: #ffffff;
+  --paper-sunk: #f7f7f8;
+  --ink: #121316;
+  --ink-muted: #5b5d63;
+  --ink-faint: #8b8d93;
+  --rule: rgba(18, 19, 22, 0.1);
+  --rule-soft: rgba(18, 19, 22, 0.06);
+
+  --r-surface: 12px;
+  --r-control: 8px;
+
+  /* One easing vocabulary for the whole site.
+     --ease-out is the exponential ease-out the craft floor asks for;
+     --ease-mask is the curve sp.design uses on its word reveal. */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-mask: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background-color: #ffffff;
-  color: #0b0c10;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+}
+
+/* Browser surfaces theming: the parts we did not draw still carry the design. */
+::selection {
+  background: var(--brand-red);
+  color: #fff;
+}
+:focus-visible {
+  outline: 2px solid var(--brand-red);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+a {
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: from-font;
+}
+* {
+  scrollbar-color: rgba(18, 19, 22, 0.25) transparent;
+  scrollbar-width: thin;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(18, 19, 22, 0.22);
+  border: 3px solid var(--paper);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(18, 19, 22, 0.38);
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-  .marquee {
-    overflow: hidden;
-    mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  .text-pretty {
+    text-wrap: pretty;
   }
-  .marquee__track {
-    display: flex;
-    width: max-content;
-    animation: marquee 40s linear infinite;
-    gap: 3.5rem;
-    align-items: center;
+  /* Tabular numerals wherever we count, time or price something. */
+  .nums {
+    font-variant-numeric: tabular-nums;
   }
-  .marquee--pausable:hover .marquee__track {
-    animation-play-state: paused;
+}
+
+/* --------------------------------------------------------------------------
+   Motion. Three authored moments, each with a job:
+   1) word-mask reveal for the page's own headline (technique read off sp.design)
+   2) scroll-linked reading band for the one statement section (sp.design)
+   3) sticky-stacked full-bleed panels for the work reel (technique read off jvm.com)
+   Everything else is a short, near-imperceptible entrance.
+   -------------------------------------------------------------------------- */
+
+/* 1) Word mask: an overflow-hidden window per word, the word rides up into it.
+      Staggered by index, 250ms, so the line lands as one gesture, not a wave. */
+.wordmask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  /* reserve the descender the clip would otherwise cut */
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.wordmask > span {
+  display: inline-block;
+  transform: translateY(105%);
+}
+.is-revealed .wordmask > span {
+  animation: word-rise 0.25s var(--ease-mask) backwards;
+  animation-delay: calc(0.06s + var(--i) * 0.03s);
+  transform: translateY(0);
+}
+@keyframes word-rise {
+  from {
+    transform: translateY(105%);
   }
-  @keyframes marquee {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
+  to {
+    transform: translateY(0);
   }
-  .bg-radial-fade {
-    animation: drift 14s ease-in-out infinite;
+}
+
+/* 2) Reading band: grey copy that resolves to ink as it scrolls through, with
+      the brand red marking the reading edge.
+
+      Painted per word, the way sp.design does it, so the band advances in
+      reading order across wrapped lines instead of cutting one vertical stripe
+      down the block. Each word carries its own threshold (--t) and reads the
+      one shared scroll variable (--read); nothing else changes per frame. */
+.readband > span {
+  --local: clamp(0, calc((var(--read) - var(--t)) / 7), 1);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(
+    to right,
+    var(--ink) 0 33%,
+    var(--brand-red) 46% 54%,
+    #c8c9cd 67% 100%
+  );
+  background-size: 300% 100%;
+  background-position-x: calc(100% - var(--local) * 100%);
+}
+
+/* 3) Generic entrance for blocks that are not the authored moment.
+      From an already-visible default: opacity only past 0.001 is a flash risk,
+      so we keep a small rise and a short duration. */
+.rise {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.5s var(--ease-out),
+    transform 0.5s var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 60ms);
+}
+.is-revealed .rise,
+.rise.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Clip-wipe for media: the image is uncovered rather than faded in. */
+.wipe {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.7s var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 60ms);
+}
+.is-revealed .wipe,
+.wipe.is-revealed {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Marquee for the client wall. One per page, and it holds still on hover. */
+.marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee 46s linear infinite;
+  gap: 4rem;
+  align-items: center;
+}
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
   }
-  @keyframes drift {
-    0%,
-    100% {
-      transform: translate(0, 0) scale(1);
-    }
-    50% {
-      transform: translate(2%, 3%) scale(1.06);
-    }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Underline that draws from the left on hover, for text links. */
+.link-draw {
+  background-image: linear-gradient(var(--brand-red), var(--brand-red));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size 0.3s var(--ease-out);
+}
+.link-draw:hover {
+  background-size: 100% 1px;
+}
+
+/* Without JavaScript nothing ever adds `is-revealed`, so the hidden initial
+   states have to release themselves rather than swallow the page. */
+@media (scripting: none) {
+  .wordmask > span {
+    transform: none;
+  }
+  .rise {
+    opacity: 1;
+    transform: none;
+  }
+  .wipe {
+    clip-path: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bg-radial-fade {
+  html {
+    scroll-behavior: auto;
+  }
+  .wordmask > span,
+  .is-revealed .wordmask > span {
     animation: none;
+    transform: none;
+  }
+  .rise,
+  .is-revealed .rise {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .wipe,
+  .is-revealed .wipe {
+    clip-path: none;
+    transition: none;
+  }
+  .readband > span {
+    color: var(--ink);
+    background-image: none;
   }
   .marquee__track {
-    animation-duration: 90s;
+    animation-duration: 160s;
+  }
+  .link-draw {
+    transition: none;
   }
 }

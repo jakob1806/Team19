@@ -2,6 +2,8 @@ import Image from "next/image";
 import Section from "@/components/Section";
 import ContactForm from "@/components/ContactForm";
 import CtaBand from "@/components/CtaBand";
+import Reveal from "@/components/Reveal";
+import WordReveal from "@/components/WordReveal";
 import { PLATFORMS, PlatformKey, FORM_INTRO_SOCIAL, GOALS } from "@/lib/content";
 
 export default function PlatformPage({ platform }: { platform: PlatformKey }) {
@@ -9,64 +11,99 @@ export default function PlatformPage({ platform }: { platform: PlatformKey }) {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-white pt-16 pb-16 md:pt-24">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 lg:grid-cols-2">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-widest text-brand-red">
-              Social Media Marketing
-            </p>
-            <h1 className="mt-3 text-5xl font-extrabold tracking-tight text-gray-900 sm:text-6xl">
-              {p.title}
-            </h1>
-            <p className="mt-6 max-w-xl text-lg text-gray-600">{p.lead}</p>
-          </div>
-          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-gray-200 shadow-xl">
-            <Image src={p.heroImg} alt={p.name} fill sizes="500px" className="object-cover" priority />
-          </div>
+      <section className="border-b border-rule-soft">
+        <div className="mx-auto max-w-7xl px-6 pt-20 pb-14 md:pt-28 md:pb-20">
+          <p className="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">
+            Social Media Marketing
+          </p>
+          <WordReveal
+            text={p.title}
+            className="mt-8 max-w-[14ch] text-[12vw] font-semibold leading-[0.94] tracking-[-0.035em] sm:text-[8vw] lg:text-[6.4vw]"
+          />
+          <p className="mt-10 max-w-[58ch] border-t border-rule-soft pt-8 text-lg leading-relaxed text-ink-muted">
+            {p.lead}
+          </p>
         </div>
+
+        <Reveal className="mx-auto max-w-[1600px] px-6 pb-6">
+          <div className="wipe relative aspect-[16/9] overflow-hidden rounded-surface bg-paper-sunk md:aspect-[21/9]">
+            <Image
+              src={p.heroImg}
+              alt=""
+              fill
+              sizes="100vw"
+              className="object-cover"
+              priority
+            />
+          </div>
+        </Reveal>
       </section>
 
+      {/* The long read, in one measured column beside a sticky label. */}
       <Section>
-        <div className="mx-auto max-w-3xl space-y-5 text-lg leading-relaxed text-gray-600">
-          {p.paras.map((para, i) => (
-            <p key={i}>{para}</p>
-          ))}
-        </div>
-      </Section>
-
-      {p.extra && (
-        <Section alt>
-          <div className="mx-auto max-w-3xl rounded-3xl border border-gray-200 bg-white p-8 shadow-xl sm:p-12">
-            <h2 className="text-3xl font-extrabold tracking-tight text-gray-900">{p.extra.title}</h2>
-            <div className="mt-4 space-y-4 text-base leading-relaxed text-gray-600">
-              {p.extra.paras.map((para, i) => (
-                <p key={i}>{para}</p>
+        <Reveal>
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.9fr)]">
+            <h2 className="rise text-3xl font-semibold tracking-tight sm:text-4xl lg:sticky lg:top-28 lg:self-start">
+              Wie wir auf {p.name} arbeiten
+            </h2>
+            <div className="space-y-6 text-lg leading-relaxed text-ink-muted">
+              {p.paras.map((para, i) => (
+                <p key={i} className="rise max-w-[68ch]" style={{ ["--i" as string]: i }}>
+                  {para}
+                </p>
               ))}
             </div>
           </div>
+        </Reveal>
+      </Section>
+
+      {p.extra ? (
+        <Section alt>
+          <Reveal>
+            <div className="max-w-[62ch]">
+              <h2 className="rise text-3xl font-semibold tracking-tight sm:text-4xl">
+                {p.extra.title}
+              </h2>
+              <div className="mt-6 space-y-5 text-lg leading-relaxed text-ink-muted">
+                {p.extra.paras.map((para, i) => (
+                  <p key={i} className="rise" style={{ ["--i" as string]: i + 1 }}>
+                    {para}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </Reveal>
         </Section>
-      )}
+      ) : null}
 
       <Section>
-        <p className="text-sm font-semibold uppercase tracking-widest text-brand-red">Einblicke</p>
-        <h2 className="mt-3 text-4xl font-extrabold tracking-tight text-gray-900">Ausgewählte Arbeiten</h2>
-        <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
-          {p.shots.map((src) => (
-            <div
-              key={src}
-              className="relative aspect-[3/4] overflow-hidden rounded-3xl border border-gray-200 shadow-lg"
-            >
-              <Image src={src} alt="" fill sizes="300px" className="object-cover" />
-            </div>
-          ))}
-        </div>
+        <Reveal>
+          <h2 className="rise text-3xl font-semibold tracking-tight sm:text-4xl">
+            Ausgewählte Arbeiten
+          </h2>
+          <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
+            {p.shots.map((src, i) => (
+              <div
+                key={src}
+                className="wipe relative aspect-[3/4] overflow-hidden rounded-surface bg-paper-sunk"
+                style={{ ["--i" as string]: i }}
+              >
+                <Image
+                  src={src}
+                  alt=""
+                  fill
+                  sizes="(min-width: 768px) 25vw, 50vw"
+                  className="object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        </Reveal>
       </Section>
 
       <Section alt id="anfrage">
         <div className="mx-auto max-w-2xl">
-          <h2 className="text-center text-4xl font-extrabold tracking-tight text-gray-900">
-            Jetzt Beratungstermin anfragen
-          </h2>
+          <h2 className="text-4xl font-semibold tracking-tight">Beratungstermin anfordern</h2>
           <div className="mt-10">
             <ContactForm
               formId={`${platform}-form`}

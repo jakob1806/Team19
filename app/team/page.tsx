@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Quote } from "lucide-react";
 import Section from "@/components/Section";
 import CtaBand from "@/components/CtaBand";
-import { BentoGrid, BentoCard } from "@/components/BentoGrid";
-import GlassCard from "@/components/GlassCard";
+import Reveal from "@/components/Reveal";
+import WordReveal from "@/components/WordReveal";
 import { VALUES, HISTORY, TEAM_INTRO, MEMBERS, TESTIMONIALS } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -15,90 +14,119 @@ export const metadata: Metadata = {
 export default function TeamPage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-white pt-16 pb-16 md:pt-24">
-        <div className="pointer-events-none absolute inset-0 bg-radial-fade" />
-        <div className="relative mx-auto max-w-4xl px-6 text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-brand-red">Über uns</p>
-          <h1 className="mt-3 text-5xl font-extrabold tracking-tight text-gray-900 sm:text-6xl">
-            Menschen mit Haltung
-          </h1>
+      <section className="border-b border-rule-soft">
+        <div className="mx-auto max-w-7xl px-6 pt-20 pb-14 md:pt-28 md:pb-20">
+          <p className="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Über uns</p>
+          <WordReveal
+            text="Menschen mit Haltung"
+            className="mt-8 max-w-[14ch] text-[12vw] font-semibold leading-[0.94] tracking-[-0.035em] sm:text-[8vw] lg:text-[6.4vw]"
+          />
+          <p className="mt-10 max-w-[62ch] border-t border-rule-soft pt-8 text-lg leading-relaxed text-ink-muted">
+            {TEAM_INTRO}
+          </p>
         </div>
       </section>
 
-      {/* Team intro + members */}
-      <Section alt>
-        <p className="text-sm font-semibold uppercase tracking-widest text-brand-red">Das Team</p>
-        <h2 className="mt-3 max-w-3xl text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
-          Die Köpfe hinter Team19
-        </h2>
-        <p className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-gray-600">{TEAM_INTRO}</p>
+      {/* Members. Portrait left, name and role right, on a hairline row. */}
+      <Section>
+        <Reveal>
+          <h2 className="rise text-4xl font-semibold tracking-tight sm:text-5xl">
+            Die Köpfe hinter Team19
+          </h2>
+          <ul className="mt-14 divide-y divide-rule-soft border-t border-rule-soft">
+            {MEMBERS.map((m, i) => (
+              <li
+                key={m.name}
+                className="rise flex flex-col gap-6 py-8 sm:flex-row sm:items-center"
+                style={{ ["--i" as string]: i }}
+              >
+                <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-surface bg-paper-sunk">
+                  <Image
+                    src={m.photo}
+                    alt={m.name}
+                    fill
+                    sizes="112px"
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <h3 className="text-xl font-medium">{m.name}</h3>
+                  <p className="mt-1 text-sm text-brand-red">{m.role}</p>
+                  <p className="mt-3 max-w-[58ch] text-[15px] leading-relaxed text-ink-muted">
+                    {m.bio}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+      </Section>
 
-        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
-          {MEMBERS.map((m) => (
-            <div
-              key={m.name}
-              className="rounded-3xl border border-gray-200 bg-white p-6 text-center shadow-xl"
-            >
-              <div className="mx-auto flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-gray-100">
-                <Image src={m.photo} alt={m.name} width={96} height={96} className="h-full w-full object-cover" />
+      {/* Values as a hairline grid, no cards. */}
+      <Section alt>
+        <Reveal>
+          <h2 className="rise text-4xl font-semibold tracking-tight sm:text-5xl">Wofür wir stehen</h2>
+          <dl className="mt-14 grid grid-cols-1 gap-x-14 gap-y-10 md:grid-cols-2">
+            {VALUES.map((v, i) => (
+              <div
+                key={v.title}
+                className="rise border-t border-rule pt-5"
+                style={{ ["--i" as string]: i }}
+              >
+                <dt className="text-lg font-medium">{v.title}</dt>
+                <dd className="mt-2 max-w-[52ch] text-[15px] leading-relaxed text-ink-muted">
+                  {v.text}
+                </dd>
               </div>
-              <h3 className="mt-4 text-base font-bold text-gray-900">{m.name}</h3>
-              <p className="text-xs font-semibold uppercase tracking-wide text-brand-red">{m.role}</p>
-              <p className="mt-3 text-sm leading-relaxed text-gray-600">{m.bio}</p>
+            ))}
+          </dl>
+        </Reveal>
+      </Section>
+
+      {/* History as a single measured read. */}
+      <Section>
+        <Reveal>
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
+            <h2 className="rise text-4xl font-semibold tracking-tight sm:text-5xl lg:sticky lg:top-28 lg:self-start">
+              Wie alles begann
+            </h2>
+            <div className="space-y-6 text-lg leading-relaxed text-ink-muted">
+              {HISTORY.map((p, i) => (
+                <p key={i} className="rise max-w-[68ch]" style={{ ["--i" as string]: i }}>
+                  {p}
+                </p>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
+        </Reveal>
       </Section>
 
-      {/* Values */}
-      <Section>
-        <p className="text-sm font-semibold uppercase tracking-widest text-brand-red">Werte</p>
-        <h2 className="mt-3 max-w-2xl text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
-          Wofür wir stehen
-        </h2>
-        <BentoGrid className="mt-12 md:grid-cols-2 lg:grid-cols-4">
-          {VALUES.map((v) => (
-            <BentoCard key={v.title}>
-              <h3 className="text-lg font-bold text-gray-900">{v.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-gray-600">{v.text}</p>
-            </BentoCard>
-          ))}
-        </BentoGrid>
-      </Section>
-
-      {/* History */}
+      {/* Testimonials as pull quotes on rules, not glass cards. */}
       <Section alt>
-        <p className="text-sm font-semibold uppercase tracking-widest text-brand-red">Geschichte</p>
-        <h2 className="mt-3 max-w-2xl text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
-          Wie alles begann
-        </h2>
-        <div className="mx-auto mt-10 max-w-3xl space-y-5 text-lg leading-relaxed text-gray-600">
-          {HISTORY.map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
-        </div>
-      </Section>
-
-      {/* Testimonials */}
-      <Section>
-        <p className="text-sm font-semibold uppercase tracking-widest text-brand-red">Stimmen</p>
-        <h2 className="mt-3 max-w-2xl text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
-          Was unsere Kunden sagen
-        </h2>
-        <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
-          {TESTIMONIALS.map((t) => (
-            <GlassCard key={t.name} className="p-8">
-              <Quote className="h-6 w-6 text-brand-red/40" />
-              <div className="mt-4 space-y-3 text-sm leading-relaxed text-gray-700">
-                {t.paras.map((p, i) => (
-                  <p key={i}>{p}</p>
-                ))}
-              </div>
-              <p className="mt-6 text-sm font-bold text-gray-900">{t.name}</p>
-              <p className="text-xs text-gray-500">{t.meta}</p>
-            </GlassCard>
-          ))}
-        </div>
+        <Reveal>
+          <h2 className="rise text-4xl font-semibold tracking-tight sm:text-5xl">
+            Was unsere Kunden sagen
+          </h2>
+          <div className="mt-14 grid grid-cols-1 gap-x-10 gap-y-12 lg:grid-cols-3">
+            {TESTIMONIALS.map((t, i) => (
+              <figure
+                key={t.name}
+                className="rise border-t border-rule pt-6"
+                style={{ ["--i" as string]: i }}
+              >
+                <blockquote className="space-y-3 text-[15px] leading-relaxed text-ink">
+                  {t.paras.map((p, j) => (
+                    <p key={j}>{p}</p>
+                  ))}
+                </blockquote>
+                <figcaption className="mt-6">
+                  <span className="block text-sm font-medium">{t.name}</span>
+                  <span className="mt-0.5 block text-sm text-ink-faint">{t.meta}</span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </Reveal>
       </Section>
 
       <CtaBand />

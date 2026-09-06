@@ -13,9 +13,9 @@ export default function ImpressumPage() {
       <dl className="grid grid-cols-1 gap-x-8 gap-y-6 not-prose sm:grid-cols-[160px_1fr]">
         {IMPRESSUM.rows.map((row) => (
           <div key={row.label} className="contents">
-            <dt className="text-sm font-semibold text-gray-500">{row.label}</dt>
+            <dt className="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">{row.label}</dt>
             <dd
-              className="text-base text-gray-800 [&_a]:text-brand-red [&_a]:no-underline hover:[&_a]:underline"
+              className="mt-1 text-base text-ink [&_a]:text-brand-red [&_a]:no-underline hover:[&_a]:underline"
               dangerouslySetInnerHTML={{ __html: row.value }}
             />
           </div>
